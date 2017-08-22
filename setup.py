@@ -18,7 +18,7 @@ setup(name="oshino-admin",
       test_suite="pytest",
       tests_require=[str(tr.req) for tr in test_reqs],
       setup_requires=["pytest-runner"],
-      entry_points={'console_scripts': ['oshino-admin = oshino-admin.run:main'
+      entry_points={'console_scripts': ['oshino-admin = oshino_admin.run:main'
                                         ]
                     }
 )
