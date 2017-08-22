@@ -1,0 +1,5 @@
+oshino-consul
+oshino-redis
+oshino-statsd
+oshino-hw
+oshino-prometheus
