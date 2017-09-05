@@ -2,14 +2,17 @@ import sys
 
 import pip
 import click
+import requests
 
 @click.group()
 def main():
     pass
 
 def get_plugins():
-    with open('package_manager/plugins.txt', 'r') as f:
-        return [plugin.rstrip() for plugin in f.readlines()]
+    resp = requests.get('https://raw.githubusercontent.com/CodersOfTheNight/'
+                        'oshino-admin/master/package_manager/plugins.txt')
+    lines = resp.text.split('\n')
+    return [plugin.rstrip() for plugin in lines]
 
 def validate_plugin(fn):
     def wrapper(*args, **kwargs):
