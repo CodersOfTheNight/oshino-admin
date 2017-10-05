@@ -48,6 +48,26 @@ def uninstall(package_name):
     pip.main(['uninstall', package_name])
 
 
+@main.command('status')
+def status():
+    print('Ok I guess')
+
+
+@main.command('start')
+def start():
+    print('Starting...')
+
+
+@main.command('restart')
+def start():
+    print('Restarting...')
+
+
+@main.command('stop')
+def stop():
+    print('Stopping...')
+
+
 
 if __name__ == "__main__":
     main()
