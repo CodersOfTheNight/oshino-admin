@@ -4,6 +4,9 @@ import pip
 import click
 import requests
 
+from oshino_admin import daemon
+
+
 @click.group()
 def main():
     pass
@@ -12,11 +15,13 @@ def main():
 def plugin():
     pass
 
+
 def get_plugins():
     resp = requests.get('https://raw.githubusercontent.com/CodersOfTheNight/'
                         'oshino-admin/master/package_manager/plugins.txt')
     lines = resp.text.split('\n')
     return [plugin.rstrip() for plugin in lines]
+
 
 def validate_plugin(fn):
     def wrapper(*args, **kwargs):
@@ -30,6 +35,7 @@ def validate_plugin(fn):
 
     return wrapper
 
+
 @plugin.command('list')
 def plugin_list():
     for plugin in get_plugins():
@@ -37,6 +43,7 @@ def plugin_list():
             print("{0}*".format(plugin))
         else:
             print(plugin)
+
 
 @plugin.command('install')
 @click.argument('package_name')
@@ -58,12 +65,15 @@ def status():
 
 
 @main.command('start')
-def start():
+@click.option('--config', help='Config path', default='config.yaml')
+@click.option('--pid', help='Pid for process', default='/var/run/oshino.pid')
+def start(config, pid):
     print('Starting...')
+    daemon.start_daemon(config, pid)
 
 
 @main.command('restart')
-def start():
+def restart():
     print('Restarting...')
 
 
