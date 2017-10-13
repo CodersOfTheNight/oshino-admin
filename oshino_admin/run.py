@@ -5,7 +5,7 @@ import click
 import requests
 
 from oshino_admin import daemon
-
+from oshino_admin.util import parse_plugin
 
 @click.group()
 def main():
@@ -20,7 +20,7 @@ def get_plugins():
     resp = requests.get('https://raw.githubusercontent.com/CodersOfTheNight/'
                         'oshino-admin/master/package_manager/plugins.txt')
     lines = resp.text.split('\n')
-    return [plugin.rstrip() for plugin in lines]
+    return [parse_plugin(plugin) for plugin in lines]
 
 
 def validate_plugin(fn):
