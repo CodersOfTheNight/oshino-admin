@@ -67,9 +67,11 @@ def status():
 @main.command('start')
 @click.option('--config', help='Config path', default='config.yaml')
 @click.option('--pid', help='Pid for process', default='/var/run/oshino.pid')
-def start(config, pid):
+@click.option('--verbose/--normal', help='Verbose', default=False)
+@click.option('--logfile', help='Where to put logs', default=None)
+def start(config, pid, verbose, logfile):
     print('Starting...')
-    daemon.start_daemon(config, pid)
+    daemon.start_daemon(config, pid, verbose, logfile)
 
 
 @main.command('restart')
