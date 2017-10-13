@@ -8,6 +8,10 @@ import requests
 def main():
     pass
 
+@main.group('plugin')
+def plugin():
+    pass
+
 def get_plugins():
     resp = requests.get('https://raw.githubusercontent.com/CodersOfTheNight/'
                         'oshino-admin/master/package_manager/plugins.txt')
@@ -26,22 +30,22 @@ def validate_plugin(fn):
 
     return wrapper
 
-@main.command('list')
-def plugins():
+@plugin.command('list')
+def plugin_list():
     for plugin in get_plugins():
         if plugin in sys.modules.keys():
             print("{0}*".format(plugin))
         else:
             print(plugin)
 
-@main.command('install')
+@plugin.command('install')
 @click.argument('package_name')
 @validate_plugin
 def install(package_name):
     pip.main(['install', package_name, '--upgrade'])
 
 
-@main.command('uninstall')
+@plugin.command('uninstall')
 @click.argument('package_name')
 @validate_plugin
 def uninstall(package_name):
