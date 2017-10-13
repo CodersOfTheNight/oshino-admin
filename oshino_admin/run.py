@@ -60,8 +60,9 @@ def uninstall(package_name):
 
 
 @main.command('status')
-def status():
-    print('Ok I guess')
+@click.option('--pid', help='Pid for process', default='/var/run/oshino.pid')
+def status(pid):
+    daemon.status(pid)
 
 
 @main.command('start')
@@ -74,14 +75,11 @@ def start(config, pid, verbose, logfile):
     daemon.start_daemon(config, pid, verbose, logfile)
 
 
-@main.command('restart')
-def restart():
-    print('Restarting...')
-
-
 @main.command('stop')
-def stop():
+@click.option('--pid', help='Pid for process', default='/var/run/oshino.pid')
+def stop(pid):
     print('Stopping...')
+    daemon.stop_daemon(pid)
 
 
 

@@ -34,3 +34,14 @@ def start_daemon(config_path, pid=DEFAULT_PID, verbose=False, logfile=None):
     )
     daemon.start()
     return daemon
+
+def stop_daemon(pid=DEFAULT_PID):
+    with open(pid, 'r') as f:
+        os.kill(int(f.read()), 0)
+
+def status(pid=DEFAULT_PID):
+    if os.path.exists(pid):
+        with open(pid, 'r') as f:
+            print('Process is running on: {0}'.format(f.read()))
+    else:
+        print('Process is not running')
