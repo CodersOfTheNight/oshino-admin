@@ -1,4 +1,5 @@
 import os
+import signal
 
 from daemonize import Daemonize
 from logbook import Logger, FileHandler, DEBUG, INFO
@@ -37,7 +38,7 @@ def start_daemon(config_path, pid=DEFAULT_PID, verbose=False, logfile=None):
 
 def stop_daemon(pid=DEFAULT_PID):
     with open(pid, 'r') as f:
-        os.kill(int(f.read()), 0)
+        os.kill(int(f.read()), signal.SIGTERM)
 
 def status(pid=DEFAULT_PID):
     if os.path.exists(pid):
