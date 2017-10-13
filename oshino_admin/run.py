@@ -20,7 +20,8 @@ def get_plugins():
     resp = requests.get('https://raw.githubusercontent.com/CodersOfTheNight/'
                         'oshino-admin/master/package_manager/plugins.txt')
     lines = resp.text.split('\n')
-    return [parse_plugin(plugin) for plugin in lines]
+    return [parse_plugin(plugin) for plugin in lines
+            if len(plugin.rstrip()) > 0]
 
 
 def validate_plugin(fn):
@@ -38,11 +39,11 @@ def validate_plugin(fn):
 
 @plugin.command('list')
 def plugin_list():
-    for plugin in get_plugins():
-        if plugin in sys.modules.keys():
-            print("{0}*".format(plugin))
+    for package, desc in get_plugins():
+        if package in sys.modules.keys():
+            print('{0}* - {1}'.format(package, desc))
         else:
-            print(plugin)
+            print('{0} - {1}'.format(package, desc))
 
 
 @plugin.command('install')
