@@ -3,6 +3,9 @@ import sys
 import pip
 import click
 import requests
+import yaml
+
+from oshino.config import Config
 
 from oshino_admin import daemon
 from oshino_admin.util import parse_plugin
@@ -10,6 +13,34 @@ from oshino_admin.util import parse_plugin
 @click.group()
 def main():
     pass
+
+
+@main.group('config')
+def config():
+    pass
+
+
+@config.command('init')
+@click.argument('path')
+def init_config(path):
+    default_config = {
+        'interval': 10,
+        'riemann': {
+            'host': 'localhost',
+            'port': 5555
+        },
+        'agents': [
+            {
+                'name': 'health-check',
+                'module': 'oshino.agents.http_agent.HttpAgent',
+                'url': 'http://python.org',
+                'tag': 'healthcheck'
+            }
+        ]
+    }
+    with open(path, 'w') as f:
+        yaml.dump(default_config, f, default_flow_style=False)
+
 
 @main.group('plugin')
 def plugin():
