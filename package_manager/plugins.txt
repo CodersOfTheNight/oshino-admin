@@ -1,5 +1,7 @@
-oshino_consul       =>  Agent which collects metrics from Consul
-oshino_redis        =>  Agent which collects metrics from Redis
-oshino_statsd       =>  Agent which acts as a StatsD daemon by reiving metrics intended for StatsD
-oshino_hw           =>  Agent which collects hardware metrics
-oshino_prometheus   =>  Agent which collects metrics collected by Prometheus
+oshino_consul        =>  Agent which collects metrics from Consul
+oshino_redis         =>  Agent which collects metrics from Redis
+oshino_statsd        =>  Agent which acts as a StatsD daemon by reiving metrics intended for StatsD
+oshino_hw            =>  Agent which collects hardware metrics
+oshino_prometheus    =>  Agent which collects metrics collected by Prometheus
+oshino_elasticsearch =>  Agent which collects metrics from ElasticSearch
+oshino_zmq           =>  Agent which collects metrics sent by ZMQ (Push/Pull protocol)
