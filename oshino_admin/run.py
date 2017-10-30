@@ -59,7 +59,7 @@ def validate_plugin(fn):
     def wrapper(*args, **kwargs):
         plugins = get_plugins()
         package = kwargs['package_name']
-        if not package in plugins:
+        if not package in map(lambda x: x[0], plugins):
             print("Invalid plugin '{0}'".format(package))
             sys.exit(1)
 
