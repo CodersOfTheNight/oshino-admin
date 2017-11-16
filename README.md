@@ -26,3 +26,12 @@ Custom pid path can be defined (as show in example above). Main problem is that 
 Generating Config
 ==================
 `oshino-admin config init <config_name>.yml`
+
+Querying metrics
+=================
+`oshino-admin query 'tagged "hw"' --config=config.yaml`
+
+You can run any query against Riemann using it's query DSL language. Short examples:
+`tagged "<tag>"` - retrieves metrics by tag
+`service = "<something>"` - gives metrics by service name. Same can be done for `host` or other keys
+`service =~ "%<something>%"` - `=~` marks that we're going to search by wildcard, `%` marks that there can be anything (similar to SQLs `LIKE %something%`)
