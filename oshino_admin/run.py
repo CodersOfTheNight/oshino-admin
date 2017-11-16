@@ -5,7 +5,9 @@ import click
 import requests
 import yaml
 
-from oshino.config import Config
+from riemann_client.client import Client
+
+from oshino.config import Config, load
 
 from oshino_admin import daemon
 from oshino_admin.util import parse_plugin
@@ -13,6 +15,19 @@ from oshino_admin.util import parse_plugin
 @click.group()
 def main():
     pass
+
+
+@main.command('query')
+@click.argument('q')
+@click.option('--config', help='Config path', default='config.yaml')
+def query(q, config):
+    cfg = load(config)
+    riemann = cfg.riemann
+    transport_cls = cfg.riemann.transport
+    transport = transport_cls(riemann.host, riemann.port)
+    print("Executing query: {0}".format(q))
+    with Client(transport) as client:
+        print(client.query(q))
 
 
 @main.group('config')
