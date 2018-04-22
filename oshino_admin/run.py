@@ -1,4 +1,5 @@
 import sys
+import subprocess
 
 import pip
 import click
@@ -96,14 +97,14 @@ def plugin_list():
 @click.argument('package_name')
 @validate_plugin
 def install(package_name):
-    pip.main(['install', package_name, '--upgrade'])
+    subprocess.call(['pip', 'install', package_name, '--upgrade'])
 
 
 @plugin.command('uninstall')
 @click.argument('package_name')
 @validate_plugin
 def uninstall(package_name):
-    pip.main(['uninstall', package_name])
+    subprocess.call(['pip', 'uninstall', package_name])
 
 
 @main.command('status')
