@@ -1,3 +1,0 @@
-click==6.7
-requests
-daemonize
