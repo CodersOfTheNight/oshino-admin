@@ -1,17 +1,18 @@
 import os
 import signal
+import logging
 
 from daemonize import Daemonize
-from logbook import Logger, FileHandler, DEBUG, INFO
 
-from oshino.config import load
-from oshino.core.heart import start_loop
+logger = logging.getLogger('oshino')
 
 DEFAULT_PID = '/var/run/oshino'
 
 
 def start_daemon(config_path, pid=DEFAULT_PID, verbose=False, logfile=None):
-    logger = Logger('oshino')
+    from oshino.config import load
+    from oshino.core.heart import start_loop
+
     keep_fds = []
     if logfile:
         level = DEBUG if verbose else INFO
@@ -43,6 +44,6 @@ def stop_daemon(pid=DEFAULT_PID):
 def status(pid=DEFAULT_PID):
     if os.path.exists(pid):
         with open(pid, 'r') as f:
-            print('Process is running on: {0}'.format(f.read()))
+            logger.info('Process is running on: {0}'.format(f.read()))
     else:
-        print('Process is not running')
+        logger.error('Process is not running')
