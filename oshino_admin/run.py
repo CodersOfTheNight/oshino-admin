@@ -2,13 +2,9 @@ import sys
 import subprocess
 
 import pip
-import click
 import requests
 import yaml
-
-from riemann_client.client import Client
-
-from oshino.config import Config, load
+import click
 
 from oshino_admin import daemon
 from oshino_admin.util import parse_plugin
@@ -22,6 +18,8 @@ def main():
 @click.argument('q')
 @click.option('--config', help='Config path', default='config.yaml')
 def query(q, config):
+    from oshino.config import Config, load
+    from riemann_client.client import Client
     cfg = load(config)
     riemann = cfg.riemann
     transport_cls = cfg.riemann.transport

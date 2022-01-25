@@ -1,0 +1,24 @@
+[tool.poetry]
+name = "oshino-admin"
+version = "0.2.0"
+description = ""
+authors = ["Šarūnas Navickas <zaibacu@gmail.com>"]
+license = "MIT"
+readme = "README.md"
+homepage = "https://github.com/CodersOfTheNight/oshino-admin"
+repository = "https://github.com/CodersOfTheNight/oshino-admin"
+packages = [{ include = "oshino_admin" }]
+
+[tool.poetry.dependencies]
+python = "^3.7"
+daemonize = "^2.5.0"
+requests = "^2.27.1"
+PyYAML = "^6.0"
+click = "^8.0.3"
+
+[tool.poetry.dev-dependencies]
+pytest = "^6.2.5"
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"
